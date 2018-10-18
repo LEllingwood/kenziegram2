@@ -9,7 +9,7 @@ const uploadPath = './public/uploads';
 const app = express();
 app.use(express.static(publicPath));
 const upload = multer({dest: uploadPath})
-
+//  laskdjf
 
 const uploadedFiles = [
     'baconCat.jpg',
