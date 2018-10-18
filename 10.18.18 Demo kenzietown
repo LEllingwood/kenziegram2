@@ -1,0 +1,57 @@
+10.19.
+
+app.get("/", (request, response)=>{
+    const path - './public/uploads
+
+    fs.readdir(path, function)
+})
+
+set image inside backticks and set source to file name to check.  <img src="uploads/filename.jpg"/>
+
+command shift r to hard refresh
+
+
+to get all the images from the uploads folder:
+
+loop through the uploaded images, and concat an image tag to each image.  return the new full image name.  function call would return a long string with the img tags.
+
+function pictureDisplayer(imgNames){
+    let outputString = "";
+    for(let i =0; i < imgNames.length; i++){
+    const name = imgNames[i]; 
+    console.log(name)
+    outputString += `<img src="uploads/${name}"/>`
+    }
+    return outputString
+}
+
+
+put the function inside app.get
+
+before the end of the `, use + or the special temperate literal syntax(${}).
+
+${pictureDisplayer(items)}  use items because it's what's referenced in the sample code. would be a good idea to change the console.log(items) to console.log() and other lines to imgNames.
+
+make sure you include the form tag when you copy the html to put in the app.js file.  continue to wrap the fieldset with the form.
+app.get is finished
+
+
+Upload feature:
+
+app.post (use the activity code)
+
+change action in the form to uploads.  
+ there's a setting with multer that allows you to specify the file where uploaded folders are put.  
+
+ app.use(express.static(publicPath));  this line needs to be changed to put the uploaded files into uploads: 
+
+const publicPath = "public/"
+const uploadPath = "public/uploads/"
+app.use9express.static(publicPath));
+ const upload = multer({dest: uploadPath})
+
+
+
+in the post endpoint, put in a back button in the ``
+response.end(`<h1> congrats.</h1> <button or <a href="/">back</a>
+<img src="uploads/${request.file.filename}"/>`)
