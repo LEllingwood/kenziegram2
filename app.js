@@ -1,14 +1,16 @@
 const express = require("express")
 const multer = require("multer")
 const fs = require("fs")
+const app = express();
 
 const port = 3000;
 const publicPath = "public/";
 const uploadPath = './public/uploads';
 
-const app = express();
 app.use(express.static(publicPath));
 const upload = multer({dest: uploadPath})
+app.set("views", "./views" )
+app.set("view engine", "pug")
 
 const uploadedFiles = [
     'baconCat.jpg',
@@ -30,22 +32,7 @@ function pictureDisplayer(imgNames){
 app.get("/", function(request, response){
     fs.readdir(uploadPath, function(err, items) {
     	console.log(items);
-        response.send(`<h1>Welcome to Kenziegram!</h1>
-
-        <form method="post" action="http://localhost:3000/uploads" enctype="multipart/form-data">
-            <div>
-                <label for="file">Chose a file</label>
-                <input type="file" id="file" name="myFile">
-            </div>
-
-            <div>
-                <button type="submit">Send the file</button>
-
-                </div>
-        </form>
-        ${pictureDisplayer(uploadedFiles)}
-        
-        `);
+        response.render("index", {title: "Hey", message: "this is a message", imagePathArray: uploadedFiles});
     });
 })
 
@@ -53,7 +40,6 @@ app.post('/uploads', upload.single('myFile'), function (request, response, next)
     console.log("Uploaded: " + request.file.filename);
     uploadedFiles.push(request.file.filename);
     response.end(`<a href="/">Go Back</a> <img src="uploads/${request.file.filename}"/`);
-// response.end(`${<fieldset><form action="/"><input type="submit" value="Go Back"/></form></fieldset>}`);
 })
 
 app.listen(port);

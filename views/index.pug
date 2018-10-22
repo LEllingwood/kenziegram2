@@ -1,0 +1,20 @@
+html
+    head      
+        title= title
+    body
+        h1= "Welcome to Kenziegram!"
+        
+        form(action = "http://localhost:3000/uploads", method = "POST", enctype = "multipart/form-data", id="user-create-form")
+            div
+                label(for="file") Choose a file
+                input(
+                        type="file"
+                        id = "file"
+                        name = "myFile")
+            div
+                    button(type="submit") Send the file
+            
+        ul
+            each val in imagePathArray
+                li 
+                    img(src="/uploads/" + val, width=300)
